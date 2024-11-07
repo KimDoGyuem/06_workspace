@@ -1,0 +1,19 @@
+body{
+  background-color: rgb(82, 167, 252);
+}
+
+#card_area{
+  display: flex;
+  height: 250px;
+  padding: 4px;
+  border: 4px solid rgb(41, 171, 78);
+}
+
+.card{
+  background-image: url('./mb.jpg');
+  background-size: cover; /* 비율에 맞춰 영역을 꽉 채웁니다 */
+  background-position: center; /* 이미지를 중앙에 위치 */
+  background-repeat: no-repeat; /* 반복하지 않음 */  
+  width:200px;
+  height:242px;
+}
