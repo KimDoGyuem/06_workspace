@@ -10,10 +10,68 @@ body{
 }
 
 .card{
-  background-image: url('./mb.jpg');
+  position: relative;
   background-size: cover; /* 비율에 맞춰 영역을 꽉 채웁니다 */
   background-position: center; /* 이미지를 중앙에 위치 */
   background-repeat: no-repeat; /* 반복하지 않음 */  
   width:200px;
   height:242px;
+  background-color: rgb(209, 254, 253);
+}
+
+#stats{
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.v6{
+  border: 4px solid rgb(198, 31, 198);
+}
+.v5{
+  border: 4px solid rgb(42, 121, 238);
+}
+.v4{
+  border: 4px solid rgb(26, 207, 26);
+}
+.v3{
+  border: 4px solid rgb(228, 216, 48);
+}
+.v2{
+  border: 4px solid rgb(237, 120, 37);
+}
+.v1{
+  border: 4px solid rgb(228, 38, 38);
+}
+
+.꼬마돌{
+  background-image: url('./꼬마돌.webp');
+}
+.꼬렛{
+  background-image: url('./꼬렛.webp');
+}
+.구구{
+  background-image: url('./구구.webp');
+}
+.뿔충이{
+  background-image: url('./뿔충이.webp');
+}
+.알통몬{
+  background-image: url('./알통몬.webp');
+}
+.고오스{
+  background-image: url('./고오스.webp');
+}
+.이상해씨{
+  background-image: url('./이상해씨.webp');
+}
+.꼬부기{
+  background-image: url('./꼬부기.webp');
+}
+.파이리{
+  background-image: url('./파이리.webp');
+}
+.피카츄{
+  background-image: url('./피카츄.webp');
 }

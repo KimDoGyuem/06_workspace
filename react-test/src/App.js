@@ -1,17 +1,15 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import './App.css';
 
-var cards = ["카드1", "카드2", "카드3", "카드4", "카드5", "카드6", "카드7"];
-var grade = ["S+", "S", "A", "B", "C", "D"];
-
-function dice(n) {
-  return Math.floor(Math.random() * n + 1);
-}
-
-function Card({ cards, grade }) {
+function Card({ pokemon, grade, at, df }) {
   return (
-    <div className={`card ${cards} ${grade}`}>
-      {cards} - {grade}
+    <div className={`card ${pokemon} ${grade}`}>
+      <div id="stats">
+        {pokemon} - {grade} <br />
+        공격력:{at} <br />
+        방여력:{df}
+      </div>
     </div>
   )
 }
@@ -26,30 +24,45 @@ function CardArea({ children }) {
 
 function App() {
 
-  function gacha() {
-    var c = cards[dice(6)];
-    var g = grade[dice(5)];
-    console.log(c, g);
-    setMy([...my, { cards: c, grade: g }]);
+  function gachaApi1() {
+    axios.get('http://localhost:8080/spring/api/gacha')
+      .then(response => {
+        console.log(response.data);
+        setCard1([...player1, response.data]);
+      })
+      .catch(error => {
+        console.error('Error fetching data', error);
+      });
+  }
+  function gachaApi2() {
+    axios.get('http://localhost:8080/spring/api/gacha')
+      .then(response => {
+        console.log(response.data);
+        setCard2([...player2, response.data]);
+      })
+      .catch(error => {
+        console.error('Error fetching data', error);
+      });
   }
 
-  var [my, setMy] = useState([]);
+  var [player1, setCard1] = useState([]);
+  var [player2, setCard2] = useState([]);
 
   return (
     <>
       <h2>플레이어1</h2>
-      <button onClick={gacha}>카드뽑기</button>
+      <button onClick={gachaApi1}>카드뽑기</button>
       <CardArea>
-        {my.map((cd, index) => (
-          <Card key={index} cards={cd.cards} grade={cd.grade} />
+        {player1.map((cd, index) => (
+          <Card key={index} pokemon={cd.pokemon} grade={cd.grade} at={cd.attack} df={cd.defense} />
         ))}
       </CardArea>
 
       <h2>플레이어2</h2>
-      <button onClick={gacha}>카드뽑기</button>
+      <button onClick={gachaApi2}>카드뽑기</button>
       <CardArea>
-        {my.map((cd, index) => (
-          <Card key={index} cards={cd.cards} grade={cd.grade} />
+        {player2.map((cd, index) => (
+          <Card key={index} pokemon={cd.pokemon} grade={cd.grade} />
         ))}
       </CardArea>
     </>
