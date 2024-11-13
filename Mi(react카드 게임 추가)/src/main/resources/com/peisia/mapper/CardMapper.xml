@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peisia.mapper.CardMapper">
+	<!-- resultType 에 복수형(ArrayList 등)을 적는게 아님. 
+	그냥 dto 단수의 경로를 적어야됨. -->
+	<select id="getList" resultType="com.peisia.dto.CardDto">
+		SELECT * from card_my
+	</select>	
+	
+	<insert id="addCard">
+		INSERT into card_my (job,grade) values (#{job}, #{grade})
+	</insert>
+	
+	<update id="del">
+		DELETE from card_my
+	</update>
+				
+	<insert id="partyAdd">
+		INSERT into card_my_party (job,grade) values (#{job}, #{grade})
+	</insert>			
+					
+</mapper>
