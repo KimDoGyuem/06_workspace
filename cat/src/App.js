@@ -1,93 +1,120 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
-function RamenTimer({ duration, onComplete }) {
-  const [timeLeft, setTimeLeft] = useState(duration); // 선택된 라면 시간
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timerId = setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-
-      return () => clearTimeout(timerId);
-    } else {
-      onComplete(); // 타이머 종료 시 호출
-    }
-  }, [timeLeft, onComplete]);
-
+function Card({ job, grade, xxx}) {
   return (
-    <div style={{ fontSize: '1em', color: 'blue' }}>
-      남은 시간: {timeLeft}초
+    <div className={`card ${job} ${grade}`} onClick={xxx}>
+      {job} - {grade} {/* job과 grade를 표시 */}
     </div>
   );
 }
 
-function Burner({ burnerNumber }) {
-  const [selectedRamen, setSelectedRamen] = useState('');
-  const [timerDuration, setTimerDuration] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [isBurnerOn, setIsBurnerOn] = useState(false);
-  const [resultMessage, setResultMessage] = useState('');
-
-  const ramenOptions = {
-    너구리: 20,
-    신라면: 10,
-    짜파게티: 30
-  };
-
-  const handleRamenSelect = (e) => {
-    const ramenType = e.target.value;
-    setSelectedRamen(ramenType);
-    setTimerDuration(ramenOptions[ramenType]); // 선택한 라면의 조리 시간 설정
-  };
-
-  const handleStartTimer = () => {
-    if (timerDuration > 0) {
-      setIsBurnerOn(true);
-      setIsTimerRunning(true);
-      setResultMessage('');
-    }
-  };
-
-  const handleTimerComplete = () => {
-    setIsBurnerOn(false);
-    setIsTimerRunning(false);
-    setResultMessage(`${selectedRamen} 라면이 완성되었습니다!`);
-  };
-
+function CardArea({ children }) {
   return (
-    <div style={{ border: '1px solid gray', padding: '20px', margin: '10px' }}>
-      <h2>버너 {burnerNumber}</h2>
-      <p>버너 상태: {isBurnerOn ? "ON" : "OFF"}</p>
-      <select onChange={handleRamenSelect} value={selectedRamen}>
-        <option value="">라면 종류 선택</option>
-        <option value="너구리">너구리</option>
-        <option value="신라면">신라면</option>
-        <option value="짜파게티">짜파게티</option>
-      </select>
-      <button onClick={handleStartTimer} disabled={isTimerRunning || !selectedRamen}>
-        {isTimerRunning ? "조리 중..." : "버너 ON"}
-      </button>
-      
-      {isTimerRunning && (
-        <RamenTimer duration={timerDuration} onComplete={handleTimerComplete} />
-      )}
-
-      {resultMessage && <p>{resultMessage}</p>}
+    <div id='card_area'>
+      {children}
     </div>
   );
 }
+
 
 function App() {
+
+  useEffect(() => {		
+    console.log('컴포넌트가 생성됨');	
+    getMyCardApi();
+  }, []);	
+
+  function cat(index,j,g){
+    console.log(`보유카드 번호: ${index}`);
+    alert(`보유카드 번호: ${index} 직업: ${j} 등급:${g}`);
+    var p = {job: j, grade: g};
+    setParty([...party, p]);
+    partyAdd(p);
+  }
+
+  function partyAdd(p){
+    axios.post('http://localhost:8080/spring/card/partyAdd',p)			
+    .then(response => {		
+      console.log(response.data);
+    })		
+    .catch(error => {		
+      console.error('Error fetching data:', error); 
+    });		
+  }
+
+  function gachaApi(){
+    axios.get('http://localhost:8080/spring/card/gacha')			
+    .then(response => {		
+      console.log(response.data);  // 서버로부터 받은 데이터 출력	
+          // 기존의 `my` 배열을 복사하고, 새 객체를 추가한 새로운 배열로 업데이트
+      setMy([...my, response.data]);
+    })		
+    .catch(error => {		
+      console.error('Error fetching data:', error);  // 에러 처리	
+    });		
+  }
+
+  function getMyCardApi(){
+    axios.get('http://localhost:8080/spring/card/getMyCards')			
+    .then(response => {		
+      console.log(response.data);  // 서버로부터 받은 데이터 출력	
+          // 기존의 `my` 배열을 복사하고, 새 객체를 추가한 새로운 배열로 업데이트
+      setMy([...my, ...response.data]);
+    })		
+    .catch(error => {		
+      console.error('Error fetching data:', error);  // 에러 처리	
+    });		
+  }
+
+  function reset(){
+    setMy([]);
+  }
+  
+  function del(){
+    axios.get('http://localhost:8080/spring/card/listDelete')			
+    .then(response => {		
+      console.log(response.data);  // 서버로부터 받은 데이터 출력	
+      // 기존의 `my` 배열을 복사하고, 새 객체를 추가한 새로운 배열로 업데이트
+      setMy([]);
+    })		
+    .catch(error => {		
+      console.error('Error fetching data:', error);  // 에러 처리	
+    });		
+  }
+
+  var [my,setMy] = useState([]);
+  const [party, setParty] = useState([]);
+
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>라면 버너 타이머</h1>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Burner burnerNumber={1} />
-        <Burner burnerNumber={2} />
-        <Burner burnerNumber={3} />
-      </div>
-    </div>
+    <>
+      <h2>파티 1</h2>
+      <CardArea>
+        {party.map((character, index) => (
+          <Card key={index} job={character.job} grade={character.grade} />
+        ))}
+      </CardArea>
+
+      <h2>보유</h2>
+      <button onClick={gachaApi}>카드 1뽑 by api</button>
+      <CardArea>
+        {my.map((character, index) => (
+          <Card key={index} job={character.job} grade={character.grade} 
+          xxx={()=>cat(index, character.job, character.grade)}
+          />
+        ))}
+      </CardArea>
+        <button onClick={reset}>리셋</button>
+        <button onClick={del}>나의 카드 리스트 삭제</button>
+
+      <h2>적</h2>
+      <CardArea>
+        {party.map((character, index) => (
+          <Card key={index} job={character.job} grade={character.grade} />
+        ))}
+      </CardArea>
+    </>
   );
 }
 
