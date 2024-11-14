@@ -2,9 +2,12 @@ body{
   background-color: rgb(82, 167, 252);
 }
 
+#p1_box{
+}
+
 #card_area{
   display: flex;
-  height: 220px;
+  height: 170px;
   padding: 2px;
   border: 4px solid rgb(41, 171, 78);
 }
@@ -14,8 +17,8 @@ body{
   background-size: cover; /* 비율에 맞춰 영역을 꽉 채웁니다 */
   background-position: center; /* 이미지를 중앙에 위치 */
   background-repeat: no-repeat; /* 반복하지 않음 */  
-  width:190px;
-  height:210px;
+  width:140px;
+  height:160px;
   background-color: rgb(209, 254, 253);
   margin: 2px;
 }

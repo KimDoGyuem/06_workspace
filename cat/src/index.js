@@ -4,6 +4,7 @@ import './index.css'; // CSS 파일을 불러옴 (전역 스타일을 적용)
 
 // GuildTitle 컴포넌트를 불러옴 (.js 확장자 생략 가능, 대신 헷갈림 방지로 명시)
 import App from './App.js';  // <-- 여기서는 명시적으로 .js 확장자를 추가함
+// import TestCode from './TestCode.js';
 // import Cat from './Cat.js';
 // import Dog from './Dog.js';
 
@@ -14,6 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));  // document.
 root.render(
   <React.StrictMode>  {/* React.StrictMode는 개발 모드에서 잠재적인 문제를 감지하는 기능 제공 (런타임 성능 영향 없음) */}
     <App/>
+    {/* <TestCode/> */}
     {/* <Cat/> */}
     {/* <Dog/> */}
   </React.StrictMode>
