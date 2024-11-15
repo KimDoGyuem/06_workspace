@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peisia.mapper.ShopMapper">
+	<!-- resultType 에 복수형(ArrayList 등)을 적는게 아님. 
+	그냥 dto 단수의 경로를 적어야됨. -->
+	<select id="getWealth" resultType="com.peisia.dto.WealthDto">
+		select * from my_wealth where id = 'cat'
+	</select>
+	<update id="buyGold">
+		update my_wealth set gold = gold + 10000 where id = 'cat'
+	</update>
+	<update id="buyDice">
+		update my_wealth set dice = dice + 1 where id = 'cat'
+	</update>
+	<update id="payGold">
+		update my_wealth set gold = gold - 100000 where id = 'cat'
+	</update>
+	<update id="payDice">
+		update my_wealth set dice = dice - 1 where id = 'cat'
+	</update>
+</mapper>
