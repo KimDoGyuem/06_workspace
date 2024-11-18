@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.CardMapper">
+	
+	<insert id="addCard">
+		INSERT into pokemon_card_p1 (pokemon,grade,attack,defense) values (#{pokemon},#{grade},#{attack},#{defense})	
+	</insert>
+	
+	<select id="getMyCards" resultType="com.project.dto.CardDto">
+		SELECT * from pokemon_card_p1 where deployment = 0
+	</select>
+	
+	<update id="partyAdd">
+		UPDATE pokemon_card_p1 set deployment = 1 where id = #{id} and no = #{no}
+	</update>
+	
+	<select id="getMyParty" resultType="com.project.dto.CardDto">
+		SELECT * from pokemon_card_p1 where deployment = #{no}
+	</select>
+	
+	<delete id="clearCardList">
+		truncate pokemon_card_p1
+	</delete>
+	
+	<update id="clearParty">
+		UPDATE pokemon_card_p1 set deployment = 0 where id = 'red' and deployment = 1
+	</update>
+	
+</mapper>	

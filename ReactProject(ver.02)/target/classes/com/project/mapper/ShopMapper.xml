@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.ShopMapper">
+	<select id="getWealth" resultType="com.project.dto.WealthDto">
+		SELECT * from poke_bag
+	</select>
+	
+	<update id="buyGold">
+		UPDATE poke_bag set gold = gold+10000
+	</update>
+	
+	<update id="buyTicket">
+		UPDATE poke_bag set ticket = ticket+1
+	</update>
+	
+	<update id="payGold">
+		UPDATE poke_bag set gold = gold-10000  
+	</update>
+	
+	<update id="payTicket">
+		UPDATE poke_bag set ticket = ticket-1  
+	</update>
+</mapper>	
